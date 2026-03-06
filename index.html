@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>2048 Game</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>2048</h1>
+            <div class="score-container">
+                <div class="score-box">
+                    <div class="score-label">SCORE</div>
+                    <div class="score" id="score">0</div>
+                    <div class="score-popup" id="score-popup"></div>
+                </div>
+                <div class="score-box">
+                    <div class="score-label">BEST</div>
+                    <div class="score" id="best">0</div>
+                </div>
+            </div>
+            <div class="controls">
+                <button class="undo-button" id="undo-button" title="Undo (Ctrl+Z)">↶</button>
+                <select class="difficulty-select" id="difficulty-select">
+                    <option value="normal">Normal</option>
+                    <option value="hard">Hard</option>
+                    <option value="extreme">Extreme</option>
+                </select>
+            </div>
+        </header>
+        
+        <main>
+            <div class="game-container">
+                <div class="game-message" id="game-message">
+                    <p></p>
+                    <div class="lower">
+                        <button class="retry-button">Try again</button>
+                    </div>
+                </div>
+                
+                <div class="grid-container">
+                    <div class="grid-row">
+                        <div class="grid-cell"></div>
+                        <div class="grid-cell"></div>
+                        <div class="grid-cell"></div>
+                        <div class="grid-cell"></div>
+                    </div>
+                    <div class="grid-row">
+                        <div class="grid-cell"></div>
+                        <div class="grid-cell"></div>
+                        <div class="grid-cell"></div>
+                        <div class="grid-cell"></div>
+                    </div>
+                    <div class="grid-row">
+                        <div class="grid-cell"></div>
+                        <div class="grid-cell"></div>
+                        <div class="grid-cell"></div>
+                        <div class="grid-cell"></div>
+                    </div>
+                    <div class="grid-row">
+                        <div class="grid-cell"></div>
+                        <div class="grid-cell"></div>
+                        <div class="grid-cell"></div>
+                        <div class="grid-cell"></div>
+                    </div>
+                </div>
+                
+                <div class="tile-container" id="tile-container">
+                </div>
+                <div class="particle-container" id="particle-container">
+                </div>
+            </div>
+            
+            <div class="achievements" id="achievements">
+                <h3>Achievements</h3>
+                <div class="achievement-list" id="achievement-list"></div>
+            </div>
+            
+            <div class="game-explanation">
+                <p><strong>HOW TO PLAY:</strong> Use your arrow keys to move the tiles. When two tiles with the same number touch, they merge into one!</p>
+                <p><strong>COMBOS:</strong> Chain merges together for bonus points! <span class="combo-display" id="combo-display"></span></p>
+            </div>
+            
+            <div class="button-group">
+                <button class="restart-button" id="restart-button">New Game</button>
+                <button class="sound-toggle" id="sound-toggle">🔊 Sound</button>
+            </div>
+        </main>
+    </div>
+    
+    <script src="script.js"></script>
+    <audio id="move-sound" preload="auto"></audio>
+    <audio id="merge-sound" preload="auto"></audio>
+    <audio id="win-sound" preload="auto"></audio>
+    <audio id="lose-sound" preload="auto"></audio>
+</body>
+</html>
