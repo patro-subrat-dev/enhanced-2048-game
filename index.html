@@ -2,13 +2,8 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Enhanced 2048 Game</title>
+    <title>2048</title>
     <link rel="stylesheet" href="style.css">
-    <link rel="manifest" href="manifest.json">
-    <meta name="theme-color" content="#faf8ef">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="mobile-web-app-capable" content="yes">
 </head>
 <body>
     <div class="container">
@@ -18,7 +13,6 @@
                 <div class="score-box">
                     <div class="score-label">SCORE</div>
                     <div class="score" id="score">0</div>
-                    <div class="score-popup" id="score-popup"></div>
                 </div>
                 <div class="score-box">
                     <div class="score-label">BEST</div>
@@ -27,212 +21,53 @@
             </div>
             <div class="controls">
                 <button class="undo-button" id="undo-button" title="Undo (Ctrl+Z)">↶</button>
-                <select class="difficulty-select" id="difficulty-select">
-                    <option value="normal">Normal</option>
-                    <option value="hard">Hard</option>
-                    <option value="extreme">Extreme</option>
-                </select>
-                <select class="theme-select" id="theme-select">
-                    <option value="classic">Classic</option>
-                    <option value="dark">Dark</option>
-                    <option value="neon">Neon</option>
-                    <option value="nature">Nature</option>
-                    <option value="minimal">Minimal</option>
-                </select>
-                <button class="stats-button" id="stats-button" title="Statistics">📊</button>
-                <button class="tutorial-button" id="tutorial-button" title="Tutorial">🎓</button>
             </div>
         </header>
         
         <main>
-            <div class="game-modes">
-                <button class="mode-button active" data-mode="classic">Classic</button>
-                <button class="mode-button" data-mode="time-attack">Time Attack</button>
-                <button class="mode-button" data-mode="zen">Zen</button>
-                <button class="mode-button" data-mode="challenge">Challenge</button>
-            </div>
-            
             <div class="game-container">
+                <div class="grid-container" id="grid-container">
+                    <div class="grid-row">
+                        <div class="grid-cell"></div>
+                        <div class="grid-cell"></div>
+                        <div class="grid-cell"></div>
+                        <div class="grid-cell"></div>
+                    </div>
+                    <div class="grid-row">
+                        <div class="grid-cell"></div>
+                        <div class="grid-cell"></div>
+                        <div class="grid-cell"></div>
+                        <div class="grid-cell"></div>
+                    </div>
+                    <div class="grid-row">
+                        <div class="grid-cell"></div>
+                        <div class="grid-cell"></div>
+                        <div class="grid-cell"></div>
+                        <div class="grid-cell"></div>
+                    </div>
+                    <div class="grid-row">
+                        <div class="grid-cell"></div>
+                        <div class="grid-cell"></div>
+                        <div class="grid-cell"></div>
+                        <div class="grid-cell"></div>
+                    </div>
+                </div>
+                <div class="tile-container" id="tile-container"></div>
                 <div class="game-message" id="game-message">
                     <p></p>
-                    <div class="lower">
+                    <div class="game-buttons">
                         <button class="retry-button">Try again</button>
                     </div>
                 </div>
-                
-                <div class="timer-display" id="timer-display" style="display: none;">
-                    <span class="timer-label">TIME</span>
-                    <span class="timer-value" id="timer-value">3:00</span>
-                </div>
-                
-                <div class="power-ups" id="power-ups">
-                    <button class="power-up" data-power="bomb" title="Bomb (3x3 clear)">💣</button>
-                    <button class="power-up" data-power="undo-plus" title="Extra Undo">⏪</button>
-                    <button class="power-up" data-power="multiplier" title="Score 2x">×2</button>
-                    <button class="power-up" data-power="shuffle" title="Shuffle Board">🔀</button>
-                </div>
-                
-                <div class="grid-container">
-                    <div class="grid-row">
-                        <div class="grid-cell"></div>
-                        <div class="grid-cell"></div>
-                        <div class="grid-cell"></div>
-                        <div class="grid-cell"></div>
-                    </div>
-                    <div class="grid-row">
-                        <div class="grid-cell"></div>
-                        <div class="grid-cell"></div>
-                        <div class="grid-cell"></div>
-                        <div class="grid-cell"></div>
-                    </div>
-                    <div class="grid-row">
-                        <div class="grid-cell"></div>
-                        <div class="grid-cell"></div>
-                        <div class="grid-cell"></div>
-                        <div class="grid-cell"></div>
-                    </div>
-                    <div class="grid-row">
-                        <div class="grid-cell"></div>
-                        <div class="grid-cell"></div>
-                        <div class="grid-cell"></div>
-                        <div class="grid-cell"></div>
-                    </div>
-                </div>
-                
-                <div class="tile-container" id="tile-container">
-                </div>
-                <div class="particle-container" id="particle-container">
-                </div>
             </div>
             
-            <div class="side-panel">
-                <div class="achievements" id="achievements">
-                    <h3>Achievements</h3>
-                    <div class="achievement-list" id="achievement-list"></div>
-                </div>
-                
-                <div class="statistics" id="statistics" style="display: none;">
-                    <h3>Statistics</h3>
-                    <div class="stats-grid">
-                        <div class="stat-item">
-                            <div class="stat-label">Games Played</div>
-                            <div class="stat-value" id="games-played">0</div>
-                        </div>
-                        <div class="stat-item">
-                            <div class="stat-label">Games Won</div>
-                            <div class="stat-value" id="games-won">0</div>
-                        </div>
-                        <div class="stat-item">
-                            <div class="stat-label">Win Rate</div>
-                            <div class="stat-value" id="win-rate">0%</div>
-                        </div>
-                        <div class="stat-item">
-                            <div class="stat-label">Best Score</div>
-                            <div class="stat-value" id="best-score">0</div>
-                        </div>
-                        <div class="stat-item">
-                            <div class="stat-label">Total Moves</div>
-                            <div class="stat-value" id="total-moves">0</div>
-                        </div>
-                        <div class="stat-item">
-                            <div class="stat-label">Best Combo</div>
-                            <div class="stat-value" id="best-combo">0</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="game-controls">
-                <div class="button-group">
-                    <button class="restart-button" id="restart-button">New Game</button>
-                    <button class="save-button" id="save-button" title="Save Game">💾</button>
-                    <button class="load-button" id="load-button" title="Load Game">📁</button>
-                    <button class="sound-toggle" id="sound-toggle">🔊 Sound</button>
-                    <button class="music-toggle" id="music-toggle" title="Background Music">🎵</button>
-                    <button class="hint-button" id="hint-button" title="AI Hint">💡</button>
-                </div>
-                
-                <div class="game-explanation">
-                    <p><strong>HOW TO PLAY:</strong> Use arrow keys or swipe to move tiles. Merge same numbers to reach 2048!</p>
-                    <p><strong>COMBOS:</strong> Chain merges quickly for bonus points! <span class="combo-display" id="combo-display"></span></p>
-                    <p><strong>POWER-UPS:</strong> Use special abilities strategically! <span class="power-display" id="power-display"></span></p>
-                </div>
+            <div class="game-explanation">
+                <p><strong>HOW TO PLAY:</strong> Use arrow keys to move tiles. When two tiles with the same number touch, they merge into one!</p>
+                <p>Join the tiles, get to 2048!</p>
             </div>
         </main>
     </div>
     
-    <!-- Tutorial Overlay -->
-    <div class="tutorial-overlay" id="tutorial-overlay" style="display: none;">
-        <div class="tutorial-content">
-            <h2>🎓 How to Play Enhanced 2048</h2>
-            <div class="tutorial-steps">
-                <div class="step">
-                    <h3>1. Basic Movement</h3>
-                    <p>Use arrow keys (↑↓←→) or swipe gestures to move tiles in any direction.</p>
-                </div>
-                <div class="step">
-                    <h3>2. Merging Tiles</h3>
-                    <p>When two tiles with the same number touch, they merge into one tile with double the value.</p>
-                </div>
-                <div class="step">
-                    <h3>3. Building Combos</h3>
-                    <p>Chain multiple merges quickly (within 2 seconds) to build combos and earn bonus points!</p>
-                </div>
-                <div class="step">
-                    <h3>4. Power-Ups</h3>
-                    <p>Use special abilities like bombs, extra undos, and score multipliers strategically.</p>
-                </div>
-                <div class="step">
-                    <h3>5. Game Modes</h3>
-                    <p>Try different modes: Classic, Time Attack, Zen, or Challenge for varied gameplay.</p>
-                </div>
-            </div>
-            <div class="tutorial-controls">
-                <button class="tutorial-prev" id="tutorial-prev">← Previous</button>
-                <button class="tutorial-next" id="tutorial-next">Next →</button>
-                <button class="tutorial-close" id="tutorial-close">Start Playing</button>
-            </div>
-        </div>
-    </div>
-    
-    <!-- Statistics Modal -->
-    <div class="modal-overlay" id="stats-modal" style="display: none;">
-        <div class="modal-content">
-            <h2>📊 Game Statistics</h2>
-            <div class="detailed-stats">
-                <div class="stat-category">
-                    <h3>Overall Performance</h3>
-                    <div class="stat-row"><span>Games Played:</span><span id="modal-games-played">0</span></div>
-                    <div class="stat-row"><span>Games Won:</span><span id="modal-games-won">0</span></div>
-                    <div class="stat-row"><span>Win Rate:</span><span id="modal-win-rate">0%</span></div>
-                </div>
-                <div class="stat-category">
-                    <h3>Scoring</h3>
-                    <div class="stat-row"><span>Best Score:</span><span id="modal-best-score">0</span></div>
-                    <div class="stat-row"><span>Average Score:</span><span id="modal-avg-score">0</span></div>
-                    <div class="stat-row"><span>Total Points:</span><span id="modal-total-points">0</span></div>
-                </div>
-                <div class="stat-category">
-                    <h3>Gameplay</h3>
-                    <div class="stat-row"><span>Total Moves:</span><span id="modal-total-moves">0</span></div>
-                    <div class="stat-row"><span>Best Combo:</span><span id="modal-best-combo">0</span></div>
-                    <div class="stat-row"><span>Achievements:</span><span id="modal-achievements">0/7</span></div>
-                </div>
-            </div>
-            <div class="modal-controls">
-                <button class="reset-stats" id="reset-stats">Reset Statistics</button>
-                <button class="close-modal" id="close-stats">Close</button>
-            </div>
-        </div>
-    </div>
-    
     <script src="script.js"></script>
-    <audio id="move-sound" preload="auto"></audio>
-    <audio id="merge-sound" preload="auto"></audio>
-    <audio id="win-sound" preload="auto"></audio>
-    <audio id="lose-sound" preload="auto"></audio>
-    <audio id="music-track" preload="auto" loop></audio>
-    <audio id="power-up-sound" preload="auto"></audio>
-    <audio id="achievement-sound" preload="auto"></audio>
 </body>
 </html>
